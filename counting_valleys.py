@@ -17,6 +17,6 @@ def counting_valleys(n, s):
     return valleys
 
 
-# The primary test instances
+# The primary test instances:
 print(counting_valleys(8, "UDDDUDUU"))  # 1
 print(counting_valleys(12, "DDUUDDUDUUUD"))  # 2
