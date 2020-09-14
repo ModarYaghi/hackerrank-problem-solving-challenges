@@ -12,10 +12,10 @@ def cats_and_mouse(x, y, z):
 
 # The primary test instances
 x, y, z = 2, 5, 4
-print(cats_and_mouse(x, y, z))
+print(cats_and_mouse(x, y, z))  # Cat B
 
 x, y, z = 1, 2, 3
-print(cats_and_mouse(x, y, z))
+print(cats_and_mouse(x, y, z))  # Cat B
 
 x, y, z = 1, 3, 2
-print(cats_and_mouse(x, y, z))
+print(cats_and_mouse(x, y, z))  # Mouse C
