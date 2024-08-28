@@ -2,20 +2,21 @@
 
 
 def cats_and_mouse(x, y, z):
+    """_"""
+
     if abs(x - z) < abs(y - z):
         return "Cat A"
-    elif abs(x - z) > abs(y - z):
+    if abs(x - z) > abs(y - z):
         return "Cat B"
-    else:
-        return "Mouse C"
+    return "Mouse C"
 
 
 # The primary test instances
-x, y, z = 2, 5, 4
-print(cats_and_mouse(x, y, z))  # Cat B
+_x, _y, _z = 2, 5, 4
+print(cats_and_mouse(_x, _y, _z))  # Cat B
 
-x, y, z = 1, 2, 3
-print(cats_and_mouse(x, y, z))  # Cat B
+_x, _y, _z = 1, 2, 3
+print(cats_and_mouse(_x, _y, _z))  # Cat B
 
-x, y, z = 1, 3, 2
-print(cats_and_mouse(x, y, z))  # Mouse C
+_x, _y, _z = 1, 3, 2
+print(cats_and_mouse(_x, _y, _z))  # Mouse C
