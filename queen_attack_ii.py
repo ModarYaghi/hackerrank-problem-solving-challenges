@@ -23,12 +23,15 @@ Given the queen's position and the locations of all the obstacles, find and prin
 the number of squares the queen can attack from her position at (rq, cq).
 """
 
-# import math
-import os
+# NOTE:
+# - Moving to the 8 directions of the board implemented by vectors "directions"
+# - Using 'List' for 'obstacles' is not efficient. Change the type to a 'Set' is crutial..
+## - to make it pass tests considering time efficiency. The changing is made from withing the function itself.
+# - Also, for the vairable of moving 'next_square', 'Tuple' type is used, as it's too more efficient.
+# - The conditional check for 'next_square' in the 'wile loop' optimized too.
 
-# import random
-# import re
-# import sys
+
+import os
 
 
 def queen_attack(n, k, r_q, c_q, obstacles):
@@ -59,15 +62,39 @@ def queen_attack(n, k, r_q, c_q, obstacles):
 
         A single cell may contain more than one obstacle.
         There will never be an obstacle at the position where the queen is located.
+
     """
-    board = []
 
-    for i in range(1, n + 1):
-        for j in range(1, n + 1):
-            cell = [i, j]
-            board.append(cell)
+    obstacles = set(tuple(obstacle) for obstacle in obstacles)
 
-    return board
+    directions = [
+        [1, 0],  # UP
+        [-1, 0],  # DOWN
+        [0, -1],  # LEFT
+        [0, 1],  # RIGHT
+        [1, -1],  # UP LEFT
+        [1, 1],  # UP RIGHT
+        [-1, -1],  # DOWN LEFT
+        [-1, 1],  # DOWN RIGHT
+    ]
+    number_of_squares_queen_can_attack = 0
+
+    for direction in directions:
+        # get the next square location for given directon
+        next_square = (r_q + direction[0], c_q + direction[1])
+
+        while (
+            1 <= next_square[0] <= n
+            and 1 <= next_square[1] <= n
+            and next_square not in obstacles
+        ):
+
+            number_of_squares_queen_can_attack += 1
+
+            # continue to the next square in the same direction
+            next_square = (next_square[0] + direction[0], next_square[1] + direction[1])
+
+    return number_of_squares_queen_can_attack
 
 
 if __name__ == "__main__":
