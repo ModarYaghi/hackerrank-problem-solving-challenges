@@ -67,13 +67,45 @@ topics knwon, and the second is the number of teams that know that number of top
     the team collectively knows topics represented by 11111 because each bit position in
     the resultant string is set to '1' if either corresponding bit in the original strings
 
+# Sample Input
+    4 5
+    10101
+    11100
+    11010
+    00101
+
+# Sample Output
+
+    5
+    2
+
+# Explanation
+
+    Calculating topics know for all permutations of 2 attendees we get:
+    
+    (1, 2) -> 4
+    (1, 3) -> 5
+    (1, 4) -> 3
+    (2, 3) -> 4
+    (2, 4) -> 4
+    (3, 4) -> 5
+
+    The 2 teams (1, 3) and (3, 4) know all 5 topics which is maximal.
+
 """
 
 import os
 
 
 def acm_team(topic):
-    return "Done"
+    print()
+    for i, topic_i in enumerate(topic):
+        for t in topic[i + 1 :]:
+            print(topic_i, t)
+            int1, int2 = int(topic_i, 2), int(t, 2)
+            combined_int = int1 | int2
+
+    return topic
 
 
 if __name__ == "__main__":
