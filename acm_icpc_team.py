@@ -67,17 +67,12 @@ topics knwon, and the second is the number of teams that know that number of top
     the team collectively knows topics represented by 11111 because each bit position in
     the resultant string is set to '1' if either corresponding bit in the original strings
 
-# Sample Input
-    4 5
-    10101
+# Sample Input      # Sample Output
+    4 5                     5
+    10101                   2
     11100
     11010
     00101
-
-# Sample Output
-
-    5
-    2
 
 # Explanation
 
@@ -97,15 +92,56 @@ topics knwon, and the second is the number of teams that know that number of top
 import os
 
 
-def acm_team(topic):
-    print()
-    for i, topic_i in enumerate(topic):
-        for t in topic[i + 1 :]:
-            print(topic_i, t)
-            int1, int2 = int(topic_i, 2), int(t, 2)
-            combined_int = int1 | int2
+def acm_team(attendees_topics):
+    """
+    Calculate the mximum number of topics a team of two can know
+    and how many teams can know that many topics.
 
-    return topic
+    Args:
+        attendees_topics (list of str): A list where each string represents the topics
+        known ny an attendee as a binary string.
+
+    Returns:
+        tuple: A tuple containing two elements:
+            - The maximum number of topics any two attendees can collectively know.
+            - The count of teams that know the maximum number of topics.
+    """
+
+    # This list will store the number of topics that each uniqu pair of attendees can know
+    known_topics_per_team = []
+
+    # Compare each attendee with every other attendee that follows them in the list
+    for i, first_attendee_topics in enumerate(attendees_topics):
+        for second_attendee_topics in attendees_topics[i + 1 :]:
+            # Convert the binary strings to integers for bitwise operations
+            first_topics_int = int(
+                first_attendee_topics, 2
+            )  # 2 here is to specify the bease of the number system of the parameter
+            second_topics_int = int(second_attendee_topics, 2)
+
+            # Perform bitwise OR to combine the topics known by both attendees
+            combined_topics = first_topics_int | second_topics_int
+
+            # Count the number of 1's in the binary representation of the result, representing the total topics known
+            topics_known = bin(combined_topics).count("1")
+
+            # Append the result to the list
+            known_topics_per_team.append(topics_known)
+
+    # Calculate the maximum number of topics known by any team
+    max_topics_known = (
+        max(known_topics_per_team) if known_topics_per_team else 0
+    )  # though not necessary, handling edge cases for empty list or list with only one topic where no team can be formed
+
+    # Count how many teams know that maximum number of topics
+    max_topics_team_count = (
+        known_topics_per_team.count(max_topics_known)
+        if max_topics_known
+        else 0  # though not necessary, handling edge cases
+    )
+
+    # Return the results as a tuple
+    return (max_topics_known, max_topics_team_count)
 
 
 if __name__ == "__main__":
@@ -116,13 +152,13 @@ if __name__ == "__main__":
     n = int(first_multiple_input[0])
     m = int(first_multiple_input[1])
 
-    topic = []
+    attendees_topic = []
 
     for _ in range(n):
         topic_item = input()
-        topic.append(topic_item)
+        attendees_topic.append(topic_item)
 
-    result = acm_team(topic)
+    result = acm_team(attendees_topic)
 
     fptr.write("\n".join(map(str, result)))
     fptr.write("\n")
